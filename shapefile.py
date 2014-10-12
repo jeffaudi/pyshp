@@ -485,9 +485,17 @@ class Reader:
                 if value == b(''):
                     value = 0
                 elif deci:
-                    value = float(value)
+                    try:
+                        value = float(value)
+                    except ValueError:
+                        print "Could not convert field " + name + " from " + value + " to a float."
+                        value = 0.0
                 else:
-                    value = int(value)
+                    try:
+                        value = int(value)
+                    except ValueError:
+                        print "Could not convert field " + name + " from " + value + " to a float."
+                        value = 0
             elif typ == b('D'):
                 try:
                     y, m, d = int(value[:4]), int(value[4:6]), int(value[6:8])
